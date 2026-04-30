@@ -1,0 +1,209 @@
+{
+  "executive_summary": {
+    "module": "0_EXECUTIVE_SUMMARY",
+    "title": "Executive Summary — Mining Operations Intelligence Report",
+    "generated_at": "2026-04-30T12:16:22.436587+00:00",
+    "fleet_kpis": {
+      "total_miners": 10,
+      "total_readings": 2880,
+      "fleet_avg_hashrate_ths": 111.37,
+      "fleet_total_hashrate_ths": 1113.68,
+      "fleet_avg_chip_temp_c": 76.96,
+      "analysis_window_hours": 24
+    },
+    "alert_summary": {
+      "CRITICAL": 2,
+      "HIGH": 8,
+      "MEDIUM": 2,
+      "LOW": 1,
+      "TOTAL": 13
+    },
+    "financial_impact": {
+      "fleet_daily_revenue_usd": 59.51,
+      "estimated_daily_loss_usd": 3.08,
+      "loss_as_pct_of_revenue": 5.18,
+      "annualized_loss_usd": 1124.0,
+      "site_scale_annualized_loss_usd_1000_miners": 112420.0,
+      "note": "Site-scale figure extrapolates current anomaly rate to a 1,000-miner facility for operational context. Real production figures would use site-specific anomaly priors."
+    },
+    "top_priority_actions": [
+      "IMMEDIATE: M001 exceeded 95°C for 345 min (max 103.8°C). Throttle/shutdown now. Hardware at risk ($3,500/unit).",
+      "IMMEDIATE: M003 exceeded 95°C for 105 min (max 96.2°C). Throttle/shutdown now. Hardware at risk ($3,500/unit).",
+      "Inspect cooling channel for M001. Temp-hash correlation=-0.97 (strong inverse). Avg 7.1 TH/s lost during 740 min above 85°C. Est. daily revenue loss: $0.20.",
+      "Inspect cooling channel for M003. Temp-hash correlation=-0.99 (strong inverse). Avg 34.9 TH/s lost during 120 min above 85°C. Est. daily revenue loss: $0.16.",
+      "M005 averages 90.4 TH/s vs healthy peer avg 115.7 TH/s — 21.9% underperformance. Likely degraded ASIC chips or PSU voltage issue. Est. daily revenue loss vs expected output: $1.36."
+    ]
+  },
+  "detailed_insights": [
+    {
+      "module": "1_PERFORMANCE_IMPACT",
+      "title": "Performance Impact",
+      "count": 3,
+      "insights": [
+        {
+          "miner_id": "M001",
+          "type": "THERMAL_THROTTLE",
+          "severity": "HIGH",
+          "correlation": -0.966,
+          "peak_chip_temp_c": 103.8,
+          "throttled_readings": 148,
+          "avg_lost_ths": 7.15,
+          "avg_hashrate_drop_pct": 6.5,
+          "est_daily_loss_usd": 0.2,
+          "action": "Inspect cooling channel for M001. Temp-hash correlation=-0.97 (strong inverse). Avg 7.1 TH/s lost during 740 min above 85°C. Est. daily revenue loss: $0.20."
+        },
+        {
+          "miner_id": "M003",
+          "type": "THERMAL_THROTTLE",
+          "severity": "HIGH",
+          "correlation": -0.991,
+          "peak_chip_temp_c": 96.2,
+          "throttled_readings": 24,
+          "avg_lost_ths": 34.88,
+          "avg_hashrate_drop_pct": 29.4,
+          "est_daily_loss_usd": 0.16,
+          "action": "Inspect cooling channel for M003. Temp-hash correlation=-0.99 (strong inverse). Avg 34.9 TH/s lost during 120 min above 85°C. Est. daily revenue loss: $0.16."
+        },
+        {
+          "miner_id": "M005",
+          "type": "SUSTAINED_UNDERPERFORMANCE",
+          "severity": "HIGH",
+          "healthy_peer_avg_ths": 115.73,
+          "miner_avg_ths": 90.36,
+          "underperformance_pct": 21.9,
+          "lost_ths_vs_peers": 25.37,
+          "est_daily_loss_usd": 1.36,
+          "action": "M005 averages 90.4 TH/s vs healthy peer avg 115.7 TH/s — 21.9% underperformance. Likely degraded ASIC chips or PSU voltage issue. Est. daily revenue loss vs expected output: $1.36."
+        }
+      ]
+    },
+    {
+      "module": "2_HARDWARE_RISK",
+      "title": "Hardware Damage Risk",
+      "count": 3,
+      "insights": [
+        {
+          "miner_id": "M001",
+          "type": "CRITICAL_TEMP_EXCEEDANCE",
+          "severity": "CRITICAL",
+          "max_chip_temp_c": 103.8,
+          "duration_minutes": 345,
+          "hardware_replacement_cost_usd": 3500,
+          "action": "IMMEDIATE: M001 exceeded 95°C for 345 min (max 103.8°C). Throttle/shutdown now. Hardware at risk ($3,500/unit)."
+        },
+        {
+          "miner_id": "M003",
+          "type": "CRITICAL_TEMP_EXCEEDANCE",
+          "severity": "CRITICAL",
+          "max_chip_temp_c": 96.2,
+          "duration_minutes": 105,
+          "hardware_replacement_cost_usd": 3500,
+          "action": "IMMEDIATE: M003 exceeded 95°C for 105 min (max 96.2°C). Throttle/shutdown now. Hardware at risk ($3,500/unit)."
+        },
+        {
+          "miner_id": "M003",
+          "type": "RAPID_TEMP_INCREASE",
+          "severity": "HIGH",
+          "rise_c_per_5min": 17.59,
+          "timestamp": "2025-01-01 06:00:00+00:00",
+          "action": "M003: +17.6°C in 5 min at 2025-01-01 06:00:00+00:00. Possible pump failure or flow blockage. Inspect tank immediately."
+        }
+      ]
+    },
+    {
+      "module": "3_COOLING_ANALYSIS",
+      "title": "Cooling System Analysis",
+      "count": 3,
+      "insights": [
+        {
+          "miner_id": "M001",
+          "type": "COOLING_DECOUPLING",
+          "severity": "HIGH",
+          "chip_temp_slope_per_hr": 1.48,
+          "imm_temp_slope_per_hr": 0.004,
+          "max_chip_temp_c": 103.8,
+          "action": "M001: chip temp rising at +1.5°C/hr while immersion fluid is flat (+0.00°C/hr). Heat not transferring chip→fluid effectively. Check thermal interface material, flow path, or trapped air bubble."
+        },
+        {
+          "miner_id": "M003",
+          "type": "PRESSURE_DROP",
+          "severity": "HIGH",
+          "pressure_delta_bar": -0.306,
+          "pressure_at_event": 1.893,
+          "detection_threshold": 0.12,
+          "timestamp": "2025-01-01 08:00:00+00:00",
+          "action": "Drop of 0.306 bar on M003 at 2025-01-01 08:00:00+00:00 (threshold=0.120 bar, warmup-calibrated). Possible seal leak/pump failure. Inspect tank plumbing."
+        },
+        {
+          "miner_id": "M007",
+          "type": "PRESSURE_DROP",
+          "severity": "HIGH",
+          "pressure_delta_bar": -0.457,
+          "pressure_at_event": 1.846,
+          "detection_threshold": 0.12,
+          "timestamp": "2025-01-01 14:00:00+00:00",
+          "action": "Drop of 0.457 bar on M007 at 2025-01-01 14:00:00+00:00 (threshold=0.120 bar, warmup-calibrated). Possible seal leak/pump failure. Inspect tank plumbing."
+        }
+      ]
+    },
+    {
+      "module": "4_PEER_ANOMALY",
+      "title": "Peer Anomaly Detection",
+      "count": 2,
+      "insights": [
+        {
+          "miner_id": "M001",
+          "type": "PEER_ANOMALY",
+          "severity": "MEDIUM",
+          "low_hash_outlier_pct": 0.0,
+          "high_temp_outlier_pct": 67.4,
+          "avg_hash_zscore": -0.468,
+          "avg_temp_zscore": 1.943,
+          "avg_own_hashrate_ths": 106.84,
+          "avg_fleet_hashrate_ths": 111.37,
+          "hash_lag_ths": 4.52,
+          "est_daily_loss_usd": 0.24,
+          "action": "M001: above-peer temp 67% of readings (z=+1.94). Lags fleet by 4.5 TH/s → est. $0.24/day lost. Inspect cooling channel and thermal interface."
+        },
+        {
+          "miner_id": "M005",
+          "type": "PEER_ANOMALY",
+          "severity": "HIGH",
+          "low_hash_outlier_pct": 93.4,
+          "high_temp_outlier_pct": 0.0,
+          "avg_hash_zscore": -2.185,
+          "avg_temp_zscore": -0.655,
+          "avg_own_hashrate_ths": 90.36,
+          "avg_fleet_hashrate_ths": 111.37,
+          "hash_lag_ths": 21.01,
+          "est_daily_loss_usd": 1.12,
+          "action": "M005: below-peer hashrate 93% of readings (z=-2.19). Lags fleet by 21.0 TH/s → est. $1.12/day lost. Run PSU voltage check, ASIC board diagnostics, and firmware reflash."
+        }
+      ]
+    },
+    {
+      "module": "5_EFFICIENCY",
+      "title": "Efficiency Optimization",
+      "count": 2,
+      "insights": [
+        {
+          "miner_id": "M005",
+          "type": "LOW_COOLING_EFFICIENCY",
+          "severity": "MEDIUM",
+          "efficiency_ratio": 0.754,
+          "action": "M005 produces 75% of fleet avg hashrate per cooling °C. Cross-check with peer anomaly module for root cause."
+        },
+        {
+          "miner_id": "M009",
+          "type": "OVER_COOLED",
+          "severity": "LOW",
+          "avg_imm_temp_c": 36.9,
+          "fleet_avg_imm_temp_c": 49.6,
+          "excess_cooling_c": 12.7,
+          "est_wasted_power_w": 102.0,
+          "action": "M009 immersion fluid runs 12.7°C below fleet avg (36.9°C vs 49.6°C) with no hashrate advantage. Est. wasted cooling: 102W. Reduce pump speed or fluid flow rate to this unit."
+        }
+      ]
+    }
+  ]
+}
